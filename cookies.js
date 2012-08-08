@@ -9,13 +9,18 @@
  */
 
 /**********************************
- * getAllCookies(URL)
+ * getAllCookies(URL, success_handler)
  *
  * Given a URL, use Chrome's Cookie API to return all the cookies for the
  * page's domain. Returned as a TODO.
  */
-var getAllCookies = function(page_url) {
-    return "Why hello, sir!";
+var getAllCookies = function(page_url, success_handler) {
+    return chrome.cookies.getAll({
+        url: page_url
+    }, function(cookie_array) {
+        var cookie_data = { url: page_url, cookies: cookie_array };
+        success_handler(cookie_data);
+    });
 };
 
 /**********************************

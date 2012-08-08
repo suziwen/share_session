@@ -33,8 +33,9 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
     console.log(info.pageUrl);
 
     // Get cookies!
-    var cookie_data = getAllCookies(info.pageUrl);
-    copyToClipboard(JSON.stringify(cookie_data));
+    var cookie_data = getAllCookies(info.pageUrl, function(cookie_data) {
+        copyToClipboard(JSON.stringify(cookie_data));
+    });
 });
 
 /**********************************
@@ -50,16 +51,16 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
  *
  * Given the text currently entered in the omnibox, generate a useful text
  * suggestion for the user that fits the form:
- *      "Load cookies for <url>domain.com</url>"
+ *      "Load cookies and website at [url]"
  */
 var updateOmniboxSuggestion = function(text) {
-    var description = "Load cookies";
+    var description = "Load cookies and website";
     if (text) {
         try {
             var cookie_data = JSON.parse(text);
-            if (cookie_data && cookie_data.domain) {
-                description = "Load cookies for <url>"
-                    + cookie_data.domain + "</url>";
+            if (cookie_data && cookie_data.url) {
+                description = "Load cookies and website at <url>"
+                    + cookie_data.url + "</url>";
             }
         } catch (e) {
             // Parsing errors aren't really an issue. Don't worry.
