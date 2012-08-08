@@ -12,7 +12,9 @@
  * getAllCookies(URL, success_handler)
  *
  * Given a URL, use Chrome's Cookie API to return all the cookies for the
- * page's domain. Returned as a TODO.
+ * page's domain. Returned as an object with the following properties:
+ *  url: url of the current tab
+ *  cookies: array of Cookie objects
  */
 var getAllCookies = function(page_url, success_handler) {
     return chrome.cookies.getAll({
@@ -26,7 +28,12 @@ var getAllCookies = function(page_url, success_handler) {
 /**********************************
  * loadCookies(cookies)
  *
- * Given a TODO, set cookies for this domain as specified in the given object.
+ * Given an object full of cookies in the following format:
+ *
+ *  url: URL to apply all these cookies to
+ *  cookies: array of Cookie objects
+ *
+ * sets the cookies for this URL as specified.
  */
 var loadCookies = function(data) {
     // Set each cookie. Note that there is one URL given for all cookies.
