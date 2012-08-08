@@ -14,7 +14,8 @@
         "cookies",
         "*://*/*",
         "clipboardWrite",
-        "contextMenus"
+        "contextMenus",
+        "tabs"
     ]
 }
 
