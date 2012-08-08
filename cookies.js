@@ -28,8 +28,21 @@ var getAllCookies = function(page_url, success_handler) {
  *
  * Given a TODO, set cookies for this domain as specified in the given object.
  */
-var loadCookies = function(cookies) {
-    var url = "derp";
-    return url;
+var loadCookies = function(data) {
+    // Set each cookie. Note that there is one URL given for all cookies.
+    for (var i in data.cookies) {
+        // Chrome API is picky about excessive fields in the object we pass in
+        var cookie = _.pick(
+            data.cookies[i],
+            [
+                'name', 'domain', 'value', 'path', 'secure', 'httpOnly',
+                'expirationDate'
+            ]
+        );
+
+        cookie.url = data.url;
+        chrome.cookies.set(cookie);
+    }
+    return data.url;
 };
 

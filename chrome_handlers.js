@@ -1,3 +1,7 @@
+var config = {
+    omnibox_keyword: "session_load"
+};
+
 /**********************************
  * Set up context menu action for saving page data.
  */
@@ -34,7 +38,10 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
 
     // Get cookies!
     var cookie_data = getAllCookies(info.pageUrl, function(cookie_data) {
-        copyToClipboard(JSON.stringify(cookie_data));
+        // Action name plus data
+        copyToClipboard(
+            config.omnibox_keyword + " " + JSON.stringify(cookie_data)
+        );
     });
 });
 
@@ -43,7 +50,14 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
  * all cookies passed in for the given domain.
  */
 chrome.omnibox.onInputEntered.addListener(function(text) {
-    console.log("Entered: " + text);
+    try {
+        var data = JSON.parse(text);
+        var url = loadCookies(data);
+        location.href = url;
+    }
+    catch (exception) {
+        alert("Invalid session data string! Error: " + exception.toString());
+    }
 });
 
 /**********************************
