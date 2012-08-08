@@ -4,11 +4,14 @@
     "manifest_version"  : 2,
     "description"       : "An extension for sharing your cookies on a given site with someone else. Copy your logged-in session to another computer or to a friend without giving them your login credentials!",
     "background"        : {
-        "page" : "background.html"
+        "page"          : "background.html"
     },
-    "omnibox": { "keyword" : "session_load" },
+    "omnibox"           : {
+        "keyword"       : "session_load"
+    },
     "icons": {
-        "16": "icon.png"
+        "48"            : "vcards48.png",
+        "128"           : "vcards128.png"
     },
     "permissions"       : [
         "cookies",
