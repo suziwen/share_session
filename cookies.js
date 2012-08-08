@@ -1,34 +1,30 @@
-chrome.browserAction.onClicked.addListener(function(tab) {
-    console.log("Action clicked!");
-});
+/***************************
+ * cookies.js
+ *
+ * Functions for dealing with Chrome's Cookie API.
+ *
+ * getAllCookies and loadCookies should essentially be inverses of one another,
+ * such that loadCookies(getAllCookies(url)) should have no effect and
+ * obj == getAllCookies(loadCookies(obj)).
+ */
 
-chrome.contextMenus.create({
-        title: "Copy Session Data to Clipboard",
-        id:     "share_session_cm"
-    }, function(acd) {
-    console.log("whoa");
-});
+/**********************************
+ * getAllCookies(URL)
+ *
+ * Given a URL, use Chrome's Cookie API to return all the cookies for the
+ * page's domain. Returned as a TODO.
+ */
+var getAllCookies = function(page_url) {
+    return "Why hello, sir!";
+};
 
-chrome.contextMenus.onClicked.addListener(function(info, tab) {
-    console.log("Clicked!");
-    console.log(info.pageUrl);
+/**********************************
+ * loadCookies(cookies)
+ *
+ * Given a TODO, set cookies for this domain as specified in the given object.
+ */
+var loadCookies = function(cookies) {
+    var url = "derp";
+    return url;
+};
 
-    // Get cookies!
-});
-
-/*
-$(function() {
-    $('form').submit(function(){ return false; });
-    $('#url_text').click(function(){ $(this).select(); });
-    $('#export_btn').click(function() {
-        var cookie_url = "http://session.qxlp.net/?";
-
-        $('#url_text')
-            .val(cookie_url)
-            .focus()
-            .select();
-    });
-});
-
-document.execCommand('copy')
-*/
