@@ -32,10 +32,6 @@ var copyToClipboard = function(text) {
  * user's clipboard to send to a friend or otherwise.
  */
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
-    //exportCookies(info.pageUrl, { success: copyToClipboard });
-    console.log("Clicked!");
-    console.log(info.pageUrl);
-
     // Get cookies!
     var cookie_data = getAllCookies(info.pageUrl, function(cookie_data) {
         // Action name plus data
@@ -53,7 +49,10 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
     try {
         var data = JSON.parse(text);
         var url = loadCookies(data);
-        location.href = url;
+
+        chrome.tabs.create({
+            url: url
+        });
     }
     catch (exception) {
         alert("Invalid session data string! Error: " + exception.toString());
