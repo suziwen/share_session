@@ -1,6 +1,6 @@
 {
     "name"              : "Share Sessions",
-    "version"           : "0.1",
+    "version"           : "0.1.3",
     "manifest_version"  : 2,
     "description"       : "Share your cookies on any site with a friend. Copy your logged-in session to another computer without using your login credentials!",
     "background"        : {

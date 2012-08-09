@@ -36,7 +36,7 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
     var cookie_data = getAllCookies(info.pageUrl, function(cookie_data) {
         // Action name plus data
         copyToClipboard(
-            config.omnibox_keyword + " " + JSON.stringify(cookie_data)
+            config.omnibox_keyword + " " + encode_cookie_object(cookie_data)
         );
     });
 });
@@ -46,16 +46,13 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
  * all cookies passed in for the given domain.
  */
 chrome.omnibox.onInputEntered.addListener(function(text) {
-    try {
-        var data = JSON.parse(text);
+    var data = decode_cookie_string(text);
+    if (data.url) {
         var url = loadCookies(data);
 
         chrome.tabs.create({
             url: url
         });
-    }
-    catch (exception) {
-        alert("Invalid session data string! Error: " + exception.toString());
     }
 });
 
@@ -70,7 +67,7 @@ var updateOmniboxSuggestion = function(text) {
     var description = "Load cookies and website";
     if (text) {
         try {
-            var cookie_data = JSON.parse(text);
+            var cookie_data = decode_cookie_string(text);
             if (cookie_data && cookie_data.url) {
                 description = "Load cookies and website at <url>"
                     + cookie_data.url + "</url>";
